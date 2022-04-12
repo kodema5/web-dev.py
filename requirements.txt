@@ -1,0 +1,11 @@
+
+# https://github.com/docker/docker-py
+docker
+
+# https://github.com/google/python-fire
+fire
+
+# https://python-watchdog.readthedocs.io/en/stable/
+watchdog
+
+wheel

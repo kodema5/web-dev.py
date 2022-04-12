@@ -1,0 +1,6 @@
+# for database migration
+# https://github.com/djrobstep/migra
+
+numpy
+numpy-financial
+scipy
