@@ -30,7 +30,12 @@ class Handler(FileSystemEventHandler):
         if ext != '.sql':
             return None
 
-        ts = datetime.utcfromtimestamp(os.path.getmtime(event.src_path)).strftime('%Y-%m-%d %H:%M:%S')
+        ts = '-'
+        if os.path.exists(event.src_path):
+            ts = datetime.utcfromtimestamp(
+                os.path.getmtime(event.src_path)
+            ).strftime('%Y-%m-%d %H:%M:%S')
+
         s = f"found {event.event_type} {event.src_path} ({ts})"
         if s == self.last_:
             return None
