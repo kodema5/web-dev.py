@@ -7,13 +7,30 @@ def start (
     user = "web",
     password = "rei",
     database = "web",
-    port = 5432
+    port = 5432,
+    force = False
 ):
     """starts docker image"""
-    print(f"starting {name} container")
+
 
     cwd = os.getcwd()
     d = docker.from_env()
+
+    try:
+        c = d.containers.get(name)
+        if not force:
+            print(f"found existing {name} instance. pass --force to terminate it first")
+            return
+        else:
+            print(f"stopping existing {name} instance")
+            c.stop()
+
+    except docker.errors.APIError as e:
+        # no instance found
+        pass
+
+
+    print(f"starting {name} container")
     try:
         d.containers.run(
             name,
