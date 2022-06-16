@@ -15,12 +15,14 @@ class Handler(FileSystemEventHandler):
             docker_name,
             user,
             database,
+            local,
     ):
         self._file = file
         self._pattern = pattern
         self._docker_name = docker_name
         self._user = user
         self._database = database
+        self._local = local
 
     def on_any_event(self, event):
         if event.is_directory:
@@ -51,7 +53,8 @@ class Handler(FileSystemEventHandler):
             pattern = self._pattern,
             docker_name = self._docker_name,
             user = self._user,
-            database = self._database
+            database = self._database,
+            local = self._local
         )
 
 def watch (
@@ -60,6 +63,7 @@ def watch (
     docker_name = "web-dev",
     user = "web",
     database = "web",
+    local = "t",
     cwd = os.getcwd(),
 ):
     """watching files for testing"""
@@ -72,7 +76,8 @@ def watch (
         pattern,
         docker_name,
         user,
-        database
+        database,
+        local
     )
     handler.run_test() # run first test
 

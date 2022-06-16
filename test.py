@@ -9,6 +9,7 @@ def test (
     docker_name = "web-dev",
     user = "web",
     database = "web",
+    local = "t",
 ):
     """run test.sql over .sql file"""
     print(f"testing {file} in {docker_name}")
@@ -21,10 +22,9 @@ def test (
             f" -d {database}",
             '-f /test.sql',
             f"-v test_file=/work/{file}",
-            ' --set local=t',
+            f" -v local={local}",
             ' --quiet ',
             ' --tuples-only ',
-            ' -v local=t ',
             f"-v test_pattern={pattern}" if pattern is not None else ''
         ])
         )
