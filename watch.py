@@ -38,7 +38,7 @@ class Handler(FileSystemEventHandler):
                 os.path.getmtime(event.src_path)
             ).strftime('%Y-%m-%d %H:%M:%S')
 
-        s = f"found {event.event_type} {event.src_path} ({ts})"
+        s = f"\nfound {event.event_type} {event.src_path} ({ts})"
         if s == self.last_:
             return None
 
@@ -94,6 +94,4 @@ def watch (
             obsv.join(1)
     except:
         obsv.stop()
-    obsv.join()
 
-    # test(file, pattern, docker_name, user, database)

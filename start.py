@@ -1,59 +1,45 @@
-import sys
+from serve import serve
+from test2 import test2
 import os
-import docker
+import sys
+import multiprocessing as mp
 
-def start (
-    name = "web-dev",
+def start(
+    file,
+    pattern = None,   # pattern of test-names, ex: "first"
+    docker_name = "web-dev",
     user = "web",
-    password = "rei",
     database = "web",
-    port = 5432,
-    force = False
+    local = "t",
+    cwd = os.getcwd(),
+    watch = True,
+
+    # serve
+    #
+    port=8000,   # port listens to
+    debug=True, # displays the pg-calls
+    reload=False # force reload
 ):
-    """starts docker image"""
+    """start test with --watch and serve --debug"""
 
+    mp.set_start_method('spawn')
+    q = mp.Queue()
+    p1 = mp.Process(
+        target = test2,
+        args = (file, pattern, docker_name, user, database, local, cwd, watch)
+    )
 
-    cwd = os.getcwd()
-    d = docker.from_env()
+    p2 = mp.Process(
+        target=serve,
+        args=(port, debug, reload,),
+    )
 
     try:
-        c = d.containers.get(name)
-        if not force:
-            print(f"found existing {name} instance. pass --force to terminate it first")
-            return
-        else:
-            print(f"stopping existing {name} instance")
-            c.stop()
-
-    except docker.errors.APIError as e:
-        # no instance found
-        pass
-
-
-    print(f"starting {name} container")
-    try:
-        d.containers.run(
-            name,
-            ' '.join([
-                "-c shared_preload_libraries=pg_cron",
-                f"-c cron.database={database}"
-            ]),
-            name = name,
-            auto_remove = True,
-            detach = True,
-            ports = {
-                '5432/tcp': port
-            },
-            environment = [
-                f"POSTGRES_USER={user}",
-                f"POSTGRES_PASSWORD={password}",
-                f"POSTGRES_DB={database}",
-            ],
-            volumes = [
-                f"{cwd}/.data/{name}:/var/lib/postgresql/data",
-                f"{cwd}:/work"
-            ]
-        )
-    except docker.errors.APIError as e:
-        print(f"Error: {str(e)}")
+        p1.start()
+        p2.start()
+        q.get()
+    except KeyboardInterrupt:
+        p1.terminate()
+        p2.terminate()
+        print("\nterminated.")
 
