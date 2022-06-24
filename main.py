@@ -1,18 +1,18 @@
 import fire
-from docker_build import build
-from docker_start import start
-from docker_stop import stop
-from serve import serve
-from test2 import test2
-from start import start
+import docker_build
+import docker_start
+import docker_stop
+import serve
+import test2
+import start
 
 if __name__ == '__main__':
     fire.Fire({
-        'docker-build': build,
-        'docker-start': start,
-        'docker-stop': stop,
-        'start': start,
-        'serve': serve,
-        'test': test2,
+        'docker-build': docker_build.build,
+        'docker-start': docker_start.start,
+        'docker-stop': docker_stop.stop,
+        'start': start.start,
+        'serve': serve.serve,
+        'test': test2.test2,
     })
 
