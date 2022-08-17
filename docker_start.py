@@ -48,6 +48,7 @@ def start (
                 f"POSTGRES_USER={user}",
                 f"POSTGRES_PASSWORD={password}",
                 f"POSTGRES_DB={database}",
+                f"PYTHONPATH=/work",
             ],
             volumes = [
                 f"{cwd}/.data/{name}:/var/lib/postgresql/data",
