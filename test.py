@@ -23,7 +23,9 @@ def test (
         '-v', f"local={local}",
         '--quiet',
         '--tuples-only',
-        f"-v test_pattern={pattern}" if pattern is not None else ''
+        f'-v' if pattern is not None else '',
+        f"test_pattern={pattern}" if pattern is not None else '',
+
     ])
 
     # 9/26 failed after docker-desktop upgrade
