@@ -18,20 +18,7 @@ if __name__ == '__main__':
 
 # using pipenv
 # > pip install pipenv
-# > cat web-dev
-# #!/bin/sh
-#
-# # change ?? below to folder
-# (cd /??/web-dev.py && pipenv run python main.py $*)
-#
-# git clone https://github.com/kodema5/web-dev.py
-# cd web-dev.py
-# pipenv install
-# pipenv run python main.py
-#
-# for windows
-# > type web-dev.cmd
-# setlocal
-# set PIPENV_PIPFILE=c:\??\web-dev.py\PipFile
-# pipenv run python c:\??\web-dev.py\main.py %*
-# endlocal
+# > git clone https://github.com/kodema5/web-dev.py
+# > cd web-dev.py
+# > pipenv install
+# > source web-dev

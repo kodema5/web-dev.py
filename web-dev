@@ -1,0 +1,3 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+(export PIPENV_PIPFILE=$SCRIPT_DIR/Pipfile && pipenv run python $SCRIPT_DIR/main.py $*)
