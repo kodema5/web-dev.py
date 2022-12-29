@@ -16,3 +16,10 @@ if __name__ == '__main__':
         'test': test2.test2,
     })
 
+# using pipenv
+# > pip install pipenv
+# > cat web-dev
+# #!/bin/sh
+#
+# # change ?? below to folder
+# (cd /??/web-dev.py && pipenv run python main.py $*)
