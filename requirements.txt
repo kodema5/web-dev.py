@@ -9,3 +9,7 @@ fire
 watchdog
 
 wheel
+
+# https://github.com/aws/aws-sam-cli/issues/2899
+# needed for win
+pypiwin32
