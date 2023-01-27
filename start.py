@@ -18,7 +18,8 @@ def start(
     #
     port=8000,   # port listens to
     debug=True, # displays the pg-calls
-    reload=False # force reload
+    reload=False, # force reload deno code cache
+    pgfunc="{schema}.web_{func}" # pg function signature
 ):
     """start test with --watch and serve --debug"""
 
@@ -31,7 +32,7 @@ def start(
 
     p2 = mp.Process(
         target=serve,
-        args=(port, debug, reload,),
+        args=(port, debug, reload, pgfunc,),
     )
 
     try:

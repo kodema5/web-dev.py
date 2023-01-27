@@ -3,7 +3,8 @@ import subprocess
 def serve (
     port=8000,   # port listens to
     debug=False, # displays the pg-calls
-    reload=False # force reload
+    reload=False, # force reload deno code cache
+    pgfunc="{schema}.web_{func}" # pg function signature
 ):
     """launches web-dev.js http-server"""
 
@@ -13,6 +14,7 @@ def serve (
         '--reload' if reload else '',
         'https://raw.githubusercontent.com/kodema5/web-dev.js/main/mod.js',
         f"--port={port}",
+        f"--PGFUNC=\"{pgfunc}\"",
         '--debug=true' if debug else ''
     ]
     cmd = [a for a in cmd if a != '']
