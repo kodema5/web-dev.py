@@ -3,5 +3,5 @@ numpy-financial
 scipy
 nltk
 sklearn
-
+sympy
 httpx
