@@ -1,3 +1,5 @@
+
+from sidecar import sidecar
 from serve import serve
 from test2 import test2
 import os
@@ -19,7 +21,11 @@ def start(
     port=8000,   # port listens to
     debug=True, # displays the pg-calls
     reload=False, # force reload deno code cache
-    pgfunc="{schema}.web_{func}" # pg function signature
+    pgfunc="web.{schema}_{func}", # pg function signature
+
+    # sidecar
+    #
+    sidelib=None # library to be loaded
 ):
     """start test with --watch and serve --debug"""
 
@@ -35,12 +41,19 @@ def start(
         args=(port, debug, reload, pgfunc,),
     )
 
+    p3 = mp.Process(
+        target=sidecar,
+        args=(sidelib, debug, reload),
+    )
+
     try:
         p1.start()
         p2.start()
+        p3.start()
         q.get()
     except KeyboardInterrupt:
         p1.terminate()
         p2.terminate()
+        p3.terminate()
         print("\nterminated.")
 

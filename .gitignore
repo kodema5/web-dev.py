@@ -1,5 +1,8 @@
 .data
 a.py
+a.sql
+a.js
+a.http
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -4,7 +4,7 @@ def serve (
     port=8000,   # port listens to
     debug=False, # displays the pg-calls
     reload=False, # force reload deno code cache
-    pgfunc="{schema}.web_{func}" # pg function signature
+    pgfunc="web.{schema}_{func}" # pg function signature
 ):
     """launches web-dev.js http-server"""
 
@@ -12,6 +12,7 @@ def serve (
         'deno', 'run',
         '--allow-net', '--allow-read', '--allow-env', '--unstable',
         '--reload' if reload else '',
+        # '../web-dev.js/mod.js',
         'https://raw.githubusercontent.com/kodema5/web-dev.js/main/mod.js',
         f"--port={port}",
         f"--PGFUNC=\"{pgfunc}\"",
