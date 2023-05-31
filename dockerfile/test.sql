@@ -15,8 +15,48 @@ create schema if not exists tests;
 
 create extension if not exists pgtap;
 
-\set local :local
+\set drop :drop
 \set test true
+
+---------------------------------------------------------------------------
+-- prevent drops when not local
+
+\if :drop
+\else
+create or replace function tests.web_dev_no_sql_drops()
+    returns event_trigger
+    language plpgsql
+as $$
+declare
+    r record;
+    f boolean;
+begin
+    for r in
+        select *
+        from pg_event_trigger_dropped_objects()
+    loop
+        if r.object_type='schema' and right(r.object_identity,1) = '_'
+        or right(r.schema_name,1) = '_'
+        then
+            -- raise warning '---- % (%) % %'
+            --     , tg_tag
+            --     , r.object_type
+            --     , r.schema_name
+            --     , r.object_identity;
+            raise exception 'web_dev_sql_drops cancels % %'
+                , tg_tag
+                , r.object_identity;
+        end if;
+    end loop;
+end;
+$$;
+
+drop event trigger if exists web_dev_no_sql_drops;
+create event trigger web_dev_no_sql_drops
+    on sql_drop
+    execute function tests.web_dev_no_sql_drops();
+
+\endif
 
 
 ---------------------------------------------------------------------------
@@ -74,7 +114,8 @@ set client_min_messages to warning;
 
 
 ---------------------------------------------------------------------------
--- clean-up tests schema
+-- clean-up event-trigger and tests schema
 
+drop event trigger if exists web_dev_no_sql_drops;
 drop schema if exists tests cascade;
 
