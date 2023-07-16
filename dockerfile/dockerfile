@@ -12,15 +12,20 @@ RUN apt-get update \
         postgresql-15-postgis-3 \
         postgresql-plpython3-15 \
         libpq-dev \
-        python3-pip \
-        gdal-bin \
-        git \
-        jq
+        gdal-bin
 
-# build python modules
+# get python modules
 #
-COPY requirements.txt /requirements.txt
-RUN pip3 install -r /requirements.txt
+RUN apt-get install -y \
+    python3-numpy \
+    python3-scipy \
+    python3-sympy \
+    python3-httpx
+
+
+# below does not seem to work with python 3.11
+# COPY requirements.txt /requirements.txt
+# RUN pip3 install -r /requirements.txt
 
 # some files
 #
