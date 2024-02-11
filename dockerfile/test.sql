@@ -35,8 +35,8 @@ begin
         select *
         from pg_event_trigger_dropped_objects()
     loop
-        if r.object_type='schema' and right(r.object_identity,1) = '_'
-        or right(r.schema_name,1) = '_'
+        if r.object_type='schema' and left(r.object_identity,1) = '_'
+        or left(r.schema_name,1) = '_'
         then
             -- raise warning '---- % (%) % %'
             --     , tg_tag
