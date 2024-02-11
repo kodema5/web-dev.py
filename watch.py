@@ -16,6 +16,7 @@ class Handler(FileSystemEventHandler):
             user,
             database,
             drop,
+            dev,
     ):
         self._file = file
         self._pattern = pattern
@@ -23,6 +24,7 @@ class Handler(FileSystemEventHandler):
         self._user = user
         self._database = database
         self._drop = drop
+        self._dev = dev
 
     def on_any_event(self, event):
         if event.is_directory:
@@ -54,7 +56,8 @@ class Handler(FileSystemEventHandler):
             docker_name = self._docker_name,
             user = self._user,
             database = self._database,
-            drop = self._drop
+            drop = self._drop,
+            dev = self._dev
         )
 
 def watch (
@@ -64,6 +67,7 @@ def watch (
     user = "web",
     database = "web",
     drop = "f",
+    dev = "f",
     cwd = os.getcwd(),
 ):
     """watching files for testing"""
@@ -77,7 +81,8 @@ def watch (
         docker_name,
         user,
         database,
-        drop
+        drop,
+        dev
     )
     handler.run_test() # run first test
 

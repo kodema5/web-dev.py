@@ -9,6 +9,7 @@ def test2 (
     user = "web",
     database = "web",
     drop = "f",
+    dev = "f",
     cwd = os.getcwd(),
     watch = False,
 ):
@@ -20,6 +21,7 @@ def test2 (
             user,
             database,
             drop,
+            dev,
             cwd
         )
     else:
@@ -29,6 +31,7 @@ def test2 (
             docker_name,
             user,
             database,
-            drop
+            drop,
+            dev
         )
 

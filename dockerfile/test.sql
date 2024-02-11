@@ -16,6 +16,7 @@ create schema if not exists tests;
 create extension if not exists pgtap;
 
 \set drop :drop
+\set dev :dev
 \set test true
 
 ---------------------------------------------------------------------------

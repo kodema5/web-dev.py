@@ -11,6 +11,7 @@ def test (
     user = "web",
     database = "web",
     drop = "f",
+    dev = "f",
 ):
     """run test.sql over .sql file"""
     print(f"testing {file} in {docker_name}")
@@ -21,6 +22,7 @@ def test (
         '-f', '/test.sql',
         '-v', f"test_file=/work/{file}",
         '-v', f"drop={drop}",
+        '-v', f"dev={dev}",
         '--quiet',
         '--tuples-only',
         f'-v' if pattern is not None else '',
