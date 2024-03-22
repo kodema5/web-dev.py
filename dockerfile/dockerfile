@@ -6,13 +6,13 @@ FROM postgres:15
 #
 RUN apt-get update \
     && apt-get install -y \
-        postgresql-15-pgtap \
-        postgresql-15-cron \
-        postgresql-15-partman \
-        postgresql-15-postgis-3 \
-        postgresql-plpython3-15 \
-        libpq-dev \
-        gdal-bin
+    postgresql-15-pgtap \
+    postgresql-15-cron \
+    postgresql-15-partman \
+    postgresql-15-postgis-3 \
+    postgresql-plpython3-15 \
+    libpq-dev \
+    gdal-bin
 
 # get python modules
 #
@@ -20,7 +20,8 @@ RUN apt-get install -y \
     python3-numpy \
     python3-scipy \
     python3-sympy \
-    python3-httpx
+    python3-httpx \
+    python3-cloudpickle
 
 
 # below does not seem to work with python 3.11
