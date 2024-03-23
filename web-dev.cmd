@@ -2,5 +2,5 @@
 setlocal
 set SCRIPT_DIR=%~dp0
 set PIPENV_PIPFILE=%SCRIPT_DIR%Pipfile
-pipenv run python %SCRIPT_DIR%\main.py %*
+python3 -m pipenv run python3 %SCRIPT_DIR%\main.py %*
 endlocal

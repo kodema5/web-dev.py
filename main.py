@@ -18,7 +18,7 @@ if __name__ == '__main__':
         'test': test2.test2,
     })
 
-# using pipenv
+# using pipenv (python3 -m pipenv)
 # > pip install pipenv
 # > git clone https://github.com/kodema5/web-dev.py
 # > cd web-dev.py
