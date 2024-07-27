@@ -4,7 +4,7 @@ FROM postgres:16
 
 # packages and extensions
 #
-RUN apt-get update \
+RUN apt-get -y update \
     && apt-get install -y \
     postgresql-16-pgtap \
     postgresql-16-cron \
